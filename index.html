@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href ="style.css">
+    <title>My todolist</title>
+</head>
+<body>
+    <h1>TODOs</h1>
+    <div id="app">
+        <input id = "todo-text-input" class ="prompt" onkeyup="inputChanged(event)"/>
+        <button id ="button-add" class = "type_2" onclick="createNewTodoItem()">Add</button>
+        <button id ="button-remove-all" class = "type_2" onclick="deleteAllItems()">Remove all</button>
+        <button id ="toggle-show" class ="type_2" onclick="toggleShow()">Hide completed</button>
+        <div id="todo-list"></div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
