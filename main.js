@@ -56,6 +56,7 @@ function _renderToDoItem(itemModel){
         item.classList.add("is-completed");
     }
     const container = document.createElement('div');
+    container.classList.add("container");
 
     const check = document.createElement('input');
     check.type = "checkbox";
@@ -67,11 +68,19 @@ function _renderToDoItem(itemModel){
 
     const itemText = document.createElement('span');
     itemText.innerText = itemModel.todo;
-
     container.appendChild(itemText);
+
+    const deleteItemButton = document.createElement('button');
+    deleteItemButton.innerText = "Delete";
+    deleteItemButton.style.color = "Black";
+    deleteItemButton.style.background = "Red";
+    deleteItemButton.onclick = function() {
+        deleteItem(itemModel.id);
+    };
 
     item.appendChild(container);
     item.setAttribute('data-id', itemModel.id);
+    item.appendChild(deleteItemButton);
     _getToDoList().appendChild(item);
 }
 
@@ -91,10 +100,6 @@ function updateItemState(itemId) {
 
 function _loadData(){
     const data = [];
-    // const newItem = _createNewModelItem("Buy toast");
-    // data.push(newItem);
-    // const newItem2 = _createNewModelItem("Buy eggs", true);
-    // data.push(newItem2);
     return data;
 }
 
@@ -163,5 +168,17 @@ function deleteAllItems() {
 function toggleShow() {
     window.showCompleted = !window.showCompleted;
     document.getElementById("toggle-show").innerText = (window.showCompleted ? "Hide completed" : "Show completed");
+    _updateListUi();
+}
+
+function deleteItem(itemId) {
+    const todolist = _getToDoList();
+    todolist.removeChild(_findUiItem(itemId));
+    for (let i = 0; i < window.todos.length; i++) {
+      if (window.todos[i].id === itemId) {
+        window.todos.splice(i, 1);
+        break;
+      }
+    }
     _updateListUi();
 }
