@@ -71,8 +71,8 @@ function _renderToDoItem(itemModel){
     container.appendChild(itemText);
 
     const deleteItemButton = document.createElement('button');
-    deleteItemButton.innerText = "Delete";
-    deleteItemButton.className = "type_2"
+    deleteItemButton.innerText = "-";
+    deleteItemButton.className = "type_1";
     deleteItemButton.onclick = function() {
         deleteItem(itemModel.id);
     };
@@ -134,8 +134,11 @@ function _shouldDisplayPlaceholder(){
     return false;
 }
 
-function _updateListPlaceholderText(){
+function _updateListPlaceholderText(placeholderText){
     const placeholderHTMLElement = document.getElementById('placeholder');
+    if (placeholderText) {
+        placeholder.innerText = placeholderText;
+    }
     placeholderHTMLElement.style.display = _shouldDisplayPlaceholder() ? "" : "none";
 }
 
@@ -180,4 +183,15 @@ function deleteItem(itemId) {
       }
     }
     _updateListUi();
+}
+
+async function loadExternalData() {
+    deleteAllItems();
+    _updateListPlaceholderText("Loading...");
+    let localTodos = localStorage.getItem("todos");
+    if (!localTodos) {
+        localStorage.setItem("todos", await _fetchData());
+    }
+    window.todos = await _fetchData();
+    _renderToDoList();
 }
