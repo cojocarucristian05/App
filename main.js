@@ -72,8 +72,7 @@ function _renderToDoItem(itemModel){
 
     const deleteItemButton = document.createElement('button');
     deleteItemButton.innerText = "Delete";
-    deleteItemButton.style.color = "Black";
-    deleteItemButton.style.background = "Red";
+    deleteItemButton.className = "type_2"
     deleteItemButton.onclick = function() {
         deleteItem(itemModel.id);
     };
